@@ -31,3 +31,10 @@ tasks.test {
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = JavaVersion.VERSION_16.toString()
 }
+
+tasks.jar {
+    configurations["compileClasspath"].forEach { file: File ->
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        from(zipTree(file.absoluteFile))
+    }
+}
